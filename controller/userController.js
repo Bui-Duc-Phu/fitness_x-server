@@ -67,6 +67,21 @@ const userController = {
             console.log(error);
             res.status(500).json({status : 500, message : "Server error"});
         }
+    },
+    getUserInfo : async (req, res) => {
+        try {
+            const userId = req.user.userId; 
+            const user = await User.findById(userId).select('-password'); 
+    
+            if (!user) {
+                return res.status(404).json({ status: 404, message: 'User not found' });
+            }
+    
+            res.status(200).json({ status: 200, user });
+        } catch (error) {
+            console.error('Error fetching user info:', error);
+            res.status(500).json({ status: 500, message: 'Server error' });
+        }
     }
 }
 
