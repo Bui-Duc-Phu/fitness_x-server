@@ -31,6 +31,6 @@ mongoose.connect(process.env.MONGOODB_URL, {
 //Route
 app.use("/api/user", userRoute)
 
-app.listen(8000, () => {
-    console.log("Server is running ...")
+app.listen(3000, '0.0.0.0', () => {
+    console.log("Server is running on http://0.0.0.0:3000");
 });
