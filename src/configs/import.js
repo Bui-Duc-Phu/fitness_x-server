@@ -11,7 +11,9 @@ const config = {
   printColoredConsole: require('../utils/coloredConsole'),
   conFigViewEngine: require("./viewEngine"),
   express: require("express"),
-  connectToDatabase : require('./db'),  
+  connectToDatabase : require('./db'),
+  AllRouter : require('../routes/AllRoute') 
+
 };
 
 module.exports = config;

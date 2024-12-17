@@ -6,16 +6,18 @@ const { port,
     printColoredConsole,
     conFigViewEngine,
     express,
-    connectToDatabase
+    connectToDatabase,
+    AllRouter
 } = config;
-
 
 const app = express();
 
 // viewEngine  {  dotEnv, morgan, bodyParser, cors}
 conFigViewEngine(app)
 
-const userRoute = require("./src/routes/AuthRoute")
+
+// router
+AllRouter(app)
 
 //Connect Database
 connectToDatabase();
