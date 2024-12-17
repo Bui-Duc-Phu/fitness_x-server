@@ -1,36 +1,27 @@
-const express = require("express");
-const cors = require("cors");
+
+const config = require('./src/configs/import')
+// import 
+const { port,
+    hostname,
+    printColoredConsole,
+    conFigViewEngine,
+    express,
+    connectToDatabase
+} = config;
+
+
 const app = express();
-const mongoose = require("mongoose")
-var bodyParser = require("body-parser")
-const morgan = require("morgan")
-const dotenv = require("dotenv")
-const userRoute = require("./routes/user")
 
-dotenv.config(); 
+// viewEngine  {  dotEnv, morgan, bodyParser, cors}
+conFigViewEngine(app)
 
-app.use(bodyParser.json({limit: "50mb"}));
-
-app.use(cors());
-
-app.use(morgan("common"));
+const userRoute = require("./src/routes/AuthRoute")
 
 //Connect Database
-mongoose.connect(process.env.MONGOODB_URL, {
-    dbName: 'fitness_x'
-})
-    .then(() => {
-        console.log("Connected to MongoDB");
-    })
-    .catch(err => {
-        console.error("Error connecting to MongoDB:", err);
-        process.exit(1); 
-    });
+connectToDatabase();
 
 
-//Route
-app.use("/api/user", userRoute)
 
-app.listen(3000, '0.0.0.0', () => {
-    console.log("Server is running on http://0.0.0.0:3000");
+app.listen(port,hostname, () => {
+    printColoredConsole('violet', 'Server Running ---> listening on port ' + port);
 });
